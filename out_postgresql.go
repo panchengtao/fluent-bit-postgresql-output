@@ -79,14 +79,22 @@ func FLBPluginFlush(data unsafe.Pointer, length C.int, tag *C.char) int {
 
 		// Print record keys and values
 		//timestamp := ts.(output.FLBTime)
+		// C.GoString(tag)
+
+		// Print record keys and values
 		var kvs []string
 		for k, v := range record {
-			kvs = append(kvs, fmt.Sprintf(" \"%s\": %v ", k, v))
+			switch t := v.(type) {
+			case []byte:
+				// prevent encoding to base64
+				v = string(t)
+			}
+
+			kvs = append(kvs, fmt.Sprintf(" \"%s\": \"%v\" ", k, v))
 		}
 		var jsonb = "('{" + strings.Join(kvs, ",") + "}')"
 
 		logs = append(logs, jsonb)
-
 	}
 
 	if len(logs) > 0 {
