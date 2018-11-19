@@ -32,7 +32,7 @@ func FLBPluginInit(ctx unsafe.Pointer) int {
 	username := output.FLBPluginConfigKey(ctx, "User")
 	password := output.FLBPluginConfigKey(ctx, "Password")
 
-	config, err := client.NewPgConfig(
+	config, err := client.NewConfig(
 		hosts,
 		db,
 		schema,
@@ -44,7 +44,7 @@ func FLBPluginInit(ctx unsafe.Pointer) int {
 		os.Exit(1)
 	}
 
-	pgClient, err = client.NewPgClient(config)
+	pgClient, err = client.New(config)
 	if err != nil {
 		log.Println(err.Error())
 		os.Exit(1)

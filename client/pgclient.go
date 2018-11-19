@@ -26,7 +26,7 @@ type PgConfig struct {
 	table  string
 }
 
-func NewPgClient(connPoolConfig *PgConfig) (*PgClient, error) {
+func New(connPoolConfig *PgConfig) (*PgClient, error) {
 	pool, err := pgx.NewConnPool(*(connPoolConfig.config))
 	if err != nil {
 		return nil, errors.New(fmt.Sprintf("Unable to create connection pool: %s\n", err.Error()))
@@ -38,7 +38,7 @@ func NewPgClient(connPoolConfig *PgConfig) (*PgClient, error) {
 	}, nil
 }
 
-func NewPgConfig(hosts, db, schema, table, username, password string) (*PgConfig, error) {
+func NewConfig(hosts, db, schema, table, username, password string) (*PgConfig, error) {
 	host, port = getHostAndPort(hosts)
 	connPoolConfig := &pgx.ConnPoolConfig{
 		ConnConfig: pgx.ConnConfig{
