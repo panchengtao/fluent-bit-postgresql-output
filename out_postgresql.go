@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fluent-bit-postgresql-output/client"
+	"github.com/wddpct/fluent-bit-postgresql-output/client"
 	"github.com/fluent/fluent-bit-go/output"
 	"log"
 	"os"
